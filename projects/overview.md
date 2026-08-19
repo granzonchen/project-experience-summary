@@ -1,4 +1,4 @@
-# 其余项目概况清单（39 个项目）
+# 其余项目概况清单（38 个项目）
 
 > 本清单为快速摸底结果（基于目录结构与包配置文件，未逐行深挖）。深度的技术栈/架构/踩坑分析见对应深度文档。
 
@@ -33,7 +33,8 @@
 |---|---|---|
 | qdkj-operate-master-master | shihua（石化行业运营管理后台） | Vue + Ant Design Vue + ECharts |
 | medical-ui | 医疗行业管理后台（vben-admin 架构） | Vue3 + Vite + Ant Design Vue + ECharts |
-| jiateng-pc | 佳腾? PC 端管理后台（含 arthas-output 诊断产物） | Vue / Java |
+
+> 原 jiateng-pc 已深度分析（实为佳腾 MOM 平台，含 Java 后端），见 [jiateng-pc.md](jiateng-pc.md)。
 
 ## 四、电商
 
@@ -66,7 +67,7 @@
 ## 经验归类速查
 
 - **大屏可视化类**（图表/轮询/缩放）：go-view、lx-mes-screen、qdkj-operate、medical-ui
-- **MOM/MES 制造运营类**（JeecgBoot 体系）：lx-mes、cwjt、hcmom、hexconn、card-mode、changwei、baorun、device-job-management-pc-end
+- **MOM/MES 制造运营类**（JeecgBoot 体系）：lx-mes、cwjt、jiateng-pc（已深度）、hcmom、hexconn、card-mode、changwei、baorun、device-job-management-pc-end
 - **WMS 仓储移动端**（wms-phone-app 系）：jt-app、lx-wms-app、lx-wms-app-dev、vue_app
 - **AI/Agent 类**：patent-disclosure-skill
 - **商城类**：hengyi-mall
