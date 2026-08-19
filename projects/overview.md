@@ -1,4 +1,4 @@
-# 其余项目概况清单（38 个项目）
+# 其余项目概况清单（37 个项目）
 
 > 本清单为快速摸底结果（基于目录结构与包配置文件，未逐行深挖）。深度的技术栈/架构/踩坑分析见对应深度文档。
 
@@ -19,13 +19,14 @@
 
 | 项目 | 概况 |
 |---|---|
-| jt-app | 精特/交通? WMS 移动端 H5 应用（wms-phone-app） |
 | lx-wms-app | 力翔 WMS 移动端 H5（wms-phone-app） |
 | lx-wms-app-dev | lx-wms-app 的开发分支版本 |
 | vue_app | mom-app / jt-app / npl_survey_app 多个移动端 H5 应用聚合 |
 | vue_front_project | AI_CITY / app1 / app_demo（app_demo_basic）等移动端示例项目 |
 | app | cwjt_apk（昌威 APK 打包产物?）+ mom-cloud-app（uni-app 移动端） |
 | uniapp | uni-app 项目（odoo 相关，含钉钉小程序/支付宝小程序配置） |
+
+> 原 jt-app 已深度分析（实为嘉腾生产管理 uni-app App，含 WMS/MES/QMS/TPM 五域），见 [jt-app.md](jt-app.md)。
 
 ## 三、数据可视化 / 管理后台
 
@@ -68,6 +69,6 @@
 
 - **大屏可视化类**（图表/轮询/缩放）：go-view、lx-mes-screen、qdkj-operate、medical-ui
 - **MOM/MES 制造运营类**（JeecgBoot 体系）：lx-mes、cwjt、jiateng-pc（已深度）、hcmom、hexconn、card-mode、changwei、baorun、device-job-management-pc-end
-- **WMS 仓储移动端**（wms-phone-app 系）：jt-app、lx-wms-app、lx-wms-app-dev、vue_app
+- **WMS 仓储移动端**（wms-phone-app 系）：jt-app（已深度）、lx-wms-app、lx-wms-app-dev、vue_app
 - **AI/Agent 类**：patent-disclosure-skill
 - **商城类**：hengyi-mall

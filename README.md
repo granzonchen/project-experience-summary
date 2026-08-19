@@ -11,7 +11,8 @@
 | 昌威交通 2.0（cwjt + cwjt_front） | [projects/cwjt.md](projects/cwjt.md) | MOM 云平台（Spring Boot 3 + Vue3 monorepo） | 单体多数据源 AOP 路由、401 令牌刷新队列、后端驱动路由、交接文档工作流 |
 | patent-disclosure-skill | [projects/patent-disclosure-skill.md](projects/patent-disclosure-skill.md) | 专利交底书 AI Agent Skill | 提示词工程门禁/锚点、Agent 输出契约、反幻觉具体规则、失败降级哲学 |
 | 佳腾 MOM 平台（jiateng-pc） | [projects/jiateng-pc.md](projects/jiateng-pc.md) | MOM 平台（Spring Boot 2.3 + Vue2 JeecgBoot 系） | 声明式列表页体系、v-has 权限表达式、9 副本架构教训、假读写分离 |
-| 其余 38 个项目概况 | [projects/overview.md](projects/overview.md) | 快速摸底 | 技术栈分类与项目间关联 |
+| jt-app（生产管理 App） | [projects/jt-app.md](projects/jt-app.md) | uni-app PDA 移动端（WMS+MES+QMS+TPM） | PDA 扫码三件套、PageMixin 分页状态机、多租户动态菜单、wgt 热更新 |
+| 其余 37 个项目概况 | [projects/overview.md](projects/overview.md) | 快速摸底 | 技术栈分类与项目间关联 |
 
 ## 技术栈矩阵
 
@@ -24,7 +25,7 @@
 | MOM/MES 前端 | cwjt_front | Vue3.5 + Vite6 + pnpm monorepo + Element Plus（vben-admin 蓝本） |
 | MOM 平台（佳腾） | jiateng-pc | Spring Boot 2.3 + Vue2 + JeecgBoot（donger-mom 体系） |
 | MOM 体系前端（多项目） | hcmom / hexconn / card-mode / changwei / baorun / device-job-management-pc-end | Vue + JeecgBoot 系 |
-| WMS 移动端 | jt-app / lx-wms-app / lx-wms-app-dev / vue_app | Vue H5（wms-phone-app 系） |
+| WMS 移动端 | jt-app（已深度）/ lx-wms-app / lx-wms-app-dev / vue_app | uni-app / Vue H5（wms-phone-app 系） |
 | 管理后台 | medical-ui / qdkj-operate | Vue3 + Ant Design Vue |
 | AI/Agent | patent-disclosure-skill | Python + Playwright + AgentSkill 规范 |
 | 移动端原生 | flutter / hw_test（鸿蒙）/ uniapp | Flutter / ArkTS / uni-app |
@@ -40,6 +41,7 @@
 - **安全**：密钥/DB 密码硬编码入仓需立即治理；请求签名（X-Sign）防篡改可复用
 - **前端工程化**：pnpm catalog 统一版本 + turbo 缓存；commitlint + husky 全链路；Mock 先行验收工作流
 - **智能体/提示词工程**：执行门禁 + 强制输出锚点 + 反幻觉具体规则（patent-disclosure-skill）
+- **PDA/移动端**：扫码三件套（可配置广播 + 全局事件成对 on/off + 防抖）、扫码值上下文校验、PageMixin 分页状态机、wgt 热更新、弱网离线草稿（jt-app）
 - **部署/发布**：单体 fat-jar 构建陷阱（repackage/嵌套 BOOT-INF）；构建产物自检纳入 CI
 
 ## 目录结构
@@ -48,11 +50,12 @@
 project-experience-summary/
 ├── README.md                      # 本文件
 ├── projects/
-│   ├── go-view.md                 # 深度文档 ×5
+│   ├── go-view.md                 # 深度文档 ×6
 │   ├── lx-mes.md
 │   ├── cwjt.md
 │   ├── patent-disclosure-skill.md
 │   ├── jiateng-pc.md
+│   ├── jt-app.md
 │   └── overview.md                # 其余项目概况
 └── PUSH.md                        # 推送指引
 ```
