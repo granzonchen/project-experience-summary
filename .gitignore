@@ -1,0 +1,6 @@
+# 本仓库仅存放 Markdown 文档，无需忽略源码类文件；如后续添加资源文件再补充
+*.tmp
+*.log
+Thumbs.db
+Desktop.ini
+.DS_Store
