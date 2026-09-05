@@ -14,6 +14,19 @@
 | jt-app（生产管理 App） | [projects/jt-app.md](projects/jt-app.md) | uni-app PDA 移动端（WMS+MES+QMS+TPM） | PDA 扫码三件套、PageMixin 分页状态机、多租户动态菜单、wgt 热更新 |
 | 其余 37 个项目概况 | [projects/overview.md](projects/overview.md) | 快速摸底 | 技术栈分类与项目间关联 |
 
+### projects-old 归档项目群（2020~2024，Odoo/Python/Django/uni-app 时代）
+
+| 项目群 | 文档 | 类型 | 核心经验 |
+|---|---|---|---|
+| cevt | [projects/cevt.md](projects/cevt.md) | Odoo 10→14 车队管理套件（77+ 自研 addon） | 升级 checklist codify 成脚本、迁移钉 commit hash、依赖即 CI 门禁、批量导入收集-汇总-抛错 |
+| ltc | [projects/ltc.md](projects/ltc.md) | Odoo 13 物流服务 + 多端前端 | ERP 作集成中枢、外部依赖显式超时重试、整仓复制做国际化的代价、0 tag 的快照灾难 |
+| django-vue-admin-pro | [projects/django-vue-admin-pro.md](projects/django-vue-admin-pro.md) | Django+Vue 全栈 RBAC 脚手架 | 权限三正交面分表、鉴权只信服务端、数据权限声明即生效、配置缩进层修复≠生效 |
+| dawei + dw | [projects/dawei-dw.md](projects/dawei-dw.md) | Django 复制改造样本（对照盘） | 复制裁剪三步验收、框架零污染二开、格式化清噪、路径寄生脚本 |
+| Odoo 行业系 ×4 | [projects/odoo-industry.md](projects/odoo-industry.md) | LIMS/校服/通用件/煤炭 MRP | 依赖治理三级分化、_ext 包裹不改上游、审批配置化与全局补丁之弊 |
+| antai / antaidaping | [projects/fork-dashboard.md](projects/fork-dashboard.md) | Odoo 制造 + uni-app 大屏（对照 ltc/hn_mall） | 后端复用+前端新仓分工、同名为 ext 两种语义、对内接口也要默认拒绝 |
+| zhsq + gis | [projects/gov-screen-gis.md](projects/gov-screen-gis.md) | 政务大屏/GIS 单文件交付 | 树节点=图层=接口参数、敏感数据随交付物滞留（PII 教训）、副本当版本管理 |
+| 移动端模板集群 ×6 | [projects/miniapp-cluster.md](projects/miniapp-cluster.md) | uni-app/小程序模板化开发 | 真正该沉淀的是 API 封装层而非 UI 组件、无增量提交的复制迭代不可追溯 |
+
 ## 技术栈矩阵
 
 | 领域 | 项目 | 技术栈 |
@@ -30,6 +43,9 @@
 | AI/Agent | patent-disclosure-skill | Python + Playwright + AgentSkill 规范 |
 | 移动端原生 | flutter / hw_test（鸿蒙）/ uniapp | Flutter / ArkTS / uni-app |
 | 学习实验 | java / js / python / R / react / go | 多语言示例 |
+| **归档·Odoo 生态** | cevt / ltc / lims / xinyi / antai / rfmt / odoo14addons | Odoo 10/13/14 + Python + PostgreSQL + Nginx/Docker/k8s |
+| **归档·Python 全栈** | django-vue-admin-pro / dawei / dw / zhsq | Django + DRF + Vue2 + MySQL + Docker Compose |
+| **归档·多端小程序** | mms-wmp 系 / hn_mall 系 / maintenance 系 | uni-app(Vue2) / 微信原生 + ThorUI / ColorUI |
 
 ## 高频经验标签（跨项目）
 
@@ -43,27 +59,44 @@
 - **智能体/提示词工程**：执行门禁 + 强制输出锚点 + 反幻觉具体规则（patent-disclosure-skill）
 - **PDA/移动端**：扫码三件套（可配置广播 + 全局事件成对 on/off + 防抖）、扫码值上下文校验、PageMixin 分页状态机、wgt 热更新、弱网离线草稿（jt-app）
 - **部署/发布**：单体 fat-jar 构建陷阱（repackage/嵌套 BOOT-INF）；构建产物自检纳入 CI
+- **复制改造纪律（归档时代教训）**：改造点清单化 + 删减三步验收 + 副本 diff 门禁；语言/环境差异用构建变量不用整仓副本；可运行状态唯一出处是 VCS（tag），副本/快照/dump 不是版本管理
+- **插件/依赖治理（归档时代教训）**：来源清单 + 装前机器校验 + _ext 叠层不改上游 + 仓库按 platform/business/customer 分层
+- **敏感态三形态同治**：密钥入仓、PII 随交付物滞留、抓包/快照与代码同目录——归档前强制脱敏清单
+- **外部集成三件套**：显式超时+重试、外部写不进主事务、外部身份约定配置化且无匹配告警
+- **权限三正交面**：页面可见/接口可调/数据行可见分表建模；鉴权只信服务端；权限回归断言可见行数
 
 ## 目录结构
 
 ```
 project-experience-summary/
 ├── README.md                      # 本文件
-├── GLOBAL_RULES.md                # 跨项目全局经验规则（NEW）
+├── METHOD.md                      # 项目经验提炼方法论（复盘标尺）
+├── GLOBAL_RULES.md                # 跨项目全局经验规则 R-01~R-12
+├── LEGACY_LESSONS.md              # 归档时代跨项目规则 R-13~R-21
 ├── projects/
-│   ├── go-view.md                 # 深度文档 ×6
+│   ├── go-view.md                 # 深度文档 ×6（活跃项目）
 │   ├── lx-mes.md
 │   ├── cwjt.md
 │   ├── patent-disclosure-skill.md
 │   ├── jiateng-pc.md
 │   ├── jt-app.md
-│   └── overview.md                # 其余项目概况
+│   ├── overview.md                # 其余项目概况
+│   ├── cevt.md                    # 归档项目群 8 篇 ↓
+│   ├── ltc.md
+│   ├── django-vue-admin-pro.md
+│   ├── dawei-dw.md
+│   ├── odoo-industry.md
+│   ├── fork-dashboard.md
+│   ├── gov-screen-gis.md
+│   └── miniapp-cluster.md
 └── PUSH.md                        # 推送指引
 ```
 
 ## 全局通用规则
 
 - [GLOBAL_RULES.md](GLOBAL_RULES.md)：12 条跨项目强制规则（提交规范/密钥零明文/构建自检/Monorepo/请求四件套/大屏对策/追溯校验/数据库版本控制/Mock 先行/交接续接/JeecgBoot 锁版本），编号 R-01~R-12 便于引用
+- [LEGACY_LESSONS.md](LEGACY_LESSONS.md)：R-13~R-21 共 9 条，提炼自 projects-old 归档项目群 8 篇复盘（复制改造纪律/VCS 唯一出处/依赖门禁/配置模板化/敏感态三形态/外部集成三件套/权限三正交面/测试资产/双源对账）
+- [METHOD.md](METHOD.md)：经验提炼方法论——三层漏斗、迁移性三档判断（金/留/弃）、复盘模板与规则准入门槛，后续所有复盘按此标尺执行
 
 ## 说明
 

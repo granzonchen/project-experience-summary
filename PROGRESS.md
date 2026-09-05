@@ -1,7 +1,26 @@
 # Project Experience Summary 进度记录
 
-> 更新时间：2026-08-19
+> 更新时间：2026-09-05
 > 仓库：`D:\projects\project-experience-summary` ↔ `https://github.com/granzonchen/project-experience-summary`
+
+---
+
+## ✅ 已完成（projects-old 归档项目群，2026-09-05）
+
+| # | 产出 | 说明 |
+|---|---|---|
+| 0 | `METHOD.md` | **经验提炼方法论本体**：证据链原则、三层漏斗、迁移性三档（金/留/弃）、复盘五段模板、规则准入门槛、沉淀分流表、质量自检清单 |
+| 1 | `projects/cevt.md` | Odoo 10→14 车队套件：升级 checklist codify、迁移钉 commit hash、依赖即 CI 门禁、单仓大爆炸 |
+| 2 | `projects/ltc.md` | 物流 Odoo+多端：ERP 集成中枢、超时重试踩坑后补、整仓复制国际化、0 tag 快照灾难、注释当开关 |
+| 3 | `projects/django-vue-admin-pro.md` | Django+Vue RBAC 脚手架：权限三正交面、鉴权只信服务端、数据权限声明即生效、缩进层修复≠生效 |
+| 4 | `projects/dawei-dw.md` | 复制改造样本：删减三步验收、框架零污染、格式化清噪、路径寄生脚本、VCS 三重失守 |
+| 5 | `projects/odoo-industry.md` | lims/xinyi/odoo14addons/rfmt 对照：依赖治理三级分化、_ext 包裹、审批配置化与全局补丁 |
+| 6 | `projects/fork-dashboard.md` | antai/antaidaping：后端复用+前端新仓、ext 两种语义、对内接口默认拒绝 |
+| 7 | `projects/gov-screen-gis.md` | 政务大屏/GIS：敏感数据随交付物滞留（PII）、树节点=图层、副本当版本管理 |
+| 8 | `projects/miniapp-cluster.md` | 模板化移动端：该沉淀的是 API 封装层、无增量提交的复制迭代、低价值项目判据 |
+| 9 | `LEGACY_LESSONS.md` | **R-13~R-21 共 9 条跨项目规则**（复制改造纪律/VCS 唯一出处/依赖门禁/配置模板化/敏感态三形态/外部集成三件套/权限三正交面/测试资产/双源对账），GLOBAL_RULES 已加指向 |
+
+> 隐私处置：8 篇复盘对敏感信息零复制，只记位置与类型（api.md PII、各项目明文口令、k8s secrets 等已逐一定位，处置建议见各篇"证据索引"末节）。
 
 ---
 
