@@ -12,6 +12,7 @@
 | patent-disclosure-skill | [projects/patent-disclosure-skill.md](projects/patent-disclosure-skill.md) | 专利交底书 AI Agent Skill | 提示词工程门禁/锚点、Agent 输出契约、反幻觉具体规则、失败降级哲学 |
 | 佳腾 MOM 平台（jiateng-pc） | [projects/jiateng-pc.md](projects/jiateng-pc.md) | MOM 平台（Spring Boot 2.3 + Vue2 JeecgBoot 系） | 声明式列表页体系、v-has 权限表达式、9 副本架构教训、假读写分离 |
 | jt-app（生产管理 App） | [projects/jt-app.md](projects/jt-app.md) | uni-app PDA 移动端（WMS+MES+QMS+TPM） | PDA 扫码三件套、PageMixin 分页状态机、多租户动态菜单、wgt 热更新 |
+| agent-hub（本地多智能体枢纽） | [projects/agent-hub.md](projects/agent-hub.md) | 多智能体调度（Python + 文件协议 + 7×L2 执行方） | 文件协议四落点、机械化验收拦截假完成、CLI 直调真身、配置漂移启动前校验 |
 | 其余 37 个项目概况 | [projects/overview.md](projects/overview.md) | 快速摸底 | 技术栈分类与项目间关联 |
 
 ### projects-old 归档项目群（2020~2024，Odoo/Python/Django/uni-app 时代）
@@ -26,6 +27,7 @@
 | antai / antaidaping | [projects/fork-dashboard.md](projects/fork-dashboard.md) | Odoo 制造 + uni-app 大屏（对照 ltc/hn_mall） | 后端复用+前端新仓分工、同名为 ext 两种语义、对内接口也要默认拒绝 |
 | zhsq + gis | [projects/gov-screen-gis.md](projects/gov-screen-gis.md) | 政务大屏/GIS 单文件交付 | 树节点=图层=接口参数、敏感数据随交付物滞留（PII 教训）、副本当版本管理 |
 | 移动端模板集群 ×6 | [projects/miniapp-cluster.md](projects/miniapp-cluster.md) | uni-app/小程序模板化开发 | 真正该沉淀的是 API 封装层而非 UI 组件、无增量提交的复制迭代不可追溯 |
+| flutter 工作区 ×6 | [projects/flutter-workspace.md](projects/flutter-workspace.md) | Flutter/RN（充电桩/ThingsBoard/BLE 配网/PDA，2023） | 同平台三客户端三依赖约束、副本对漂移只发生在业务层、官方 App 二开三件套（URL 可配/本地存储/修登录）、构建产物磁盘残留 ≠ 仓库膨胀 |
 
 ## 技术栈矩阵
 
@@ -46,6 +48,7 @@
 | **归档·Odoo 生态** | cevt / ltc / lims / xinyi / antai / rfmt / odoo14addons | Odoo 10/13/14 + Python + PostgreSQL + Nginx/Docker/k8s |
 | **归档·Python 全栈** | django-vue-admin-pro / dawei / dw / zhsq | Django + DRF + Vue2 + MySQL + Docker Compose |
 | **归档·多端小程序** | mms-wmp 系 / hn_mall 系 / maintenance 系 | uni-app(Vue2) / 微信原生 + ThorUI / ColorUI |
+| **归档·Flutter/RN 工作区** | flutter/（charger / tb_app_fj / feng-ji×2 / migan / warehouse_pda） | Flutter 2.12~3.7 + GetX + RN 0.63 + ThingsBoard/Odoo/Google Maps |
 
 ## 高频经验标签（跨项目）
 

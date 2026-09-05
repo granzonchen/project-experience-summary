@@ -5,6 +5,14 @@
 
 ---
 
+## ✅ 已完成（flutter 工作区，2026-09-05）
+
+| # | 产出 | 说明 |
+|---|---|---|
+| 1 | `projects/flutter-workspace.md` | flutter 工作区 6 项目群复盘（charger/tb_app_fj/feng-ji 对/觅感 RN+小程序/warehouse_pda/deer_sthx）：同平台三客户端三依赖约束、副本对漂移只发生在业务层、官方 App 二开三件套、混合交付形态；敏感点（Google Maps key×2、微信 appid）只记坐标 |
+
+---
+
 ## ✅ 已完成（projects-old 归档项目群，2026-09-05）
 
 | # | 产出 | 说明 |
