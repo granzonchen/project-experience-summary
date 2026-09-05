@@ -49,6 +49,7 @@
 ```
 project-experience-summary/
 ├── README.md                      # 本文件
+├── GLOBAL_RULES.md                # 跨项目全局经验规则（NEW）
 ├── projects/
 │   ├── go-view.md                 # 深度文档 ×6
 │   ├── lx-mes.md
@@ -59,6 +60,10 @@ project-experience-summary/
 │   └── overview.md                # 其余项目概况
 └── PUSH.md                        # 推送指引
 ```
+
+## 全局通用规则
+
+- [GLOBAL_RULES.md](GLOBAL_RULES.md)：12 条跨项目强制规则（提交规范/密钥零明文/构建自检/Monorepo/请求四件套/大屏对策/追溯校验/数据库版本控制/Mock 先行/交接续接/JeecgBoot 锁版本），编号 R-01~R-12 便于引用
 
 ## 说明
 
