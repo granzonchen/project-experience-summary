@@ -57,6 +57,7 @@
 - 微信小程序 appid（wx 开头）：`12.觅感模块/觅感-mini-app-master/migan-mini-app-master/project.config.json:52` ——**已替换（2026-09-05）**
 - 全工作区扫描基线：`D:\projects\flutter\_sanitize_report_20260905.md`（21 替换候选/4 数据产物，已 execute 并复跑归零）
 - **git 历史清洗（2026-09-05）**：charger（历史 3 blob 含 Maps key）/ tb_app_fj / hwc_pda 三仓经 git filter-repo 重写——格式密钥替换 + 作者身份全部匿名化（archive@noreply.local），提交数不变（95/6/52），旧含密 blob 已清除，终验零残留；重写前三仓镜像备份于 `D:\projects\_archive\20260905-git-backups\`。feng-ji×2 / deer_sthx 未清洗（不外发）
+- **Gitee 私有仓推送（2026-09-05）**：清洗后的 charger（4 分支）/ hwc_pda（3 分支）/ tb_app_fj（2 分支）已推至 `gitee.com/granzonchen/{charger,hwc_pda,tb_app_fj}`（全部 private，逐分支 ref 比对一致）；feng-ji×2 / deer_sthx 未推（价值已被本文档吸收）
 
 **关键证据指针**：
 - charger：`pubspec.yaml`（get/google_maps/thingsboard_client 1.0.2/dio ^4.0.6）、`lib/app/view/booking/charging_screen.dart:54,214-246`、`lib/main.dart`、`.gitignore`（ios/* 与 pubspec.lock 死规则）、git 提交 2d4ecab/3707d3b/88386aa/3ae654c/4d9448b
