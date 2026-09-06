@@ -28,6 +28,7 @@
 | zhsq + gis | [projects/gov-screen-gis.md](projects/gov-screen-gis.md) | 政务大屏/GIS 单文件交付 | 树节点=图层=接口参数、敏感数据随交付物滞留（PII 教训）、副本当版本管理 |
 | 移动端模板集群 ×6 | [projects/miniapp-cluster.md](projects/miniapp-cluster.md) | uni-app/小程序模板化开发 | 真正该沉淀的是 API 封装层而非 UI 组件、无增量提交的复制迭代不可追溯 |
 | flutter 工作区 ×6 | [projects/flutter-workspace.md](projects/flutter-workspace.md) | Flutter/RN（充电桩/ThingsBoard/BLE 配网/PDA，2023） | 同平台三客户端三依赖约束、副本对漂移只发生在业务层、官方 App 二开三件套（URL 可配/本地存储/修登录）、构建产物磁盘残留 ≠ 仓库膨胀 |
+| python 工具工作区 ×8 | [projects/python-workspace.md](projects/python-workspace.md) | Python 胶水脚本（TB/Odoo/MES 生态 + 抖音获客 + APS 排产） | 活跃工具与归档混放是治理温床、共享代码靠复制传播、venv 占 93% 体积、git-less 工具的能跑状态是 exe |
 
 ## 技术栈矩阵
 

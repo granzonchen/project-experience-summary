@@ -5,6 +5,16 @@
 
 ---
 
+## ✅ 已完成（python 工具工作区，2026-09-06）
+
+| # | 产出 | 说明 |
+|---|---|---|
+| 1 | `projects/python-workspace.md` | python 工作区 8 项目复盘（全量通读 28 py，未派代理）：业务生态胶水层、三同名文件复制传播、venv 占 93%、git-less 工具 exe 状态；⚠️ pg_to_mysql 系 cwjt 在用生产工具（2026-06 仍改）经用户决策原样保留移交 cwjt 线 |
+| 2 | E1 瘦身 | 7 座 venv + 2 build + 2 __pycache__ 经 recycle.py 入回收站，释放 1.43GB（1610→178MB）；exe 交付物三份保留 |
+| 3 | B2 脱敏 | 7 死项目 13 处凭据 execute 替换归零；pg_to_mysql 3 处生产凭据经用户决策保留 |
+
+---
+
 ## ✅ 已完成（flutter 工作区，2026-09-05）
 
 | # | 产出 | 说明 |
