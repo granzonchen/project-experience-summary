@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>AI 替我删库翻车实录：430GB 全盘扫描之后，我写下了三条铁律</title>
+</head>
+<body style="margin:0;padding:0;background:#ffffff;">
+<section style="max-width:677px;margin:0 auto;padding:24px 18px;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue','PingFang SC','Microsoft YaHei',sans-serif;font-size:16px;line-height:1.9;color:#3f3f3f;letter-spacing:0.5px;">
+
+  <!-- 摘要卡 -->
+  <section style="background:#f7f7f7;border-left:4px solid #1a73e8;padding:14px 16px;border-radius:4px;margin-bottom:28px;">
+    <p style="margin:0;font-size:14px;color:#666;line-height:1.8;">
+      让 AI 助手治理 33 个归档旧项目，前面 32 个都很顺——直到它把一个还没备份的目录删了。<br>
+      本文记录四路数据恢复的全过程、SSD 数据恢复的残酷真相，以及三条用血换来的铁律。
+    </p>
+  </section>
+
+  <!-- 引子 -->
+  <p style="margin:0 0 20px;">上周，我让 AI 助手帮我做一件拖了很久的事：给硬盘里 <strong style="color:#1a73e8;">33 个旧项目</strong>做"退休体检"。</p>
+  <p style="margin:0 0 20px;">这些项目横跨 2020 到 2024 年——有 ERP 时代的二次开发、Flutter 时期的充电桩 App、一堆 Python 自动化脚本。总共十几个 GB，其中 90% 是再也没人打开过的依赖包和虚拟环境。</p>
+  <p style="margin:0 0 20px;">AI 的执行很漂亮：清点、脱敏、复盘、瘦身、清洗 git 历史、推私有仓备份。三天清出 6GB，还顺藤摸瓜揪出了一个混在归档堆里、<strong>连着生产数据库的在用工具</strong>。</p>
+  <p style="margin:0 0 20px;">然后，在最后一个工作区的最后三个目录上，它翻车了。</p>
+
+  <!-- 分隔线 -->
+  <section style="text-align:center;color:#d0d0d0;font-size:12px;margin:32px 0;letter-spacing:6px;">◆ ◆ ◆</section>
+
+  <!-- 01 -->
+  <section style="margin-bottom:8px;">
+    <span style="display:inline-block;background:#1a73e8;color:#ffffff;font-size:13px;font-weight:bold;padding:3px 12px;border-radius:3px;">01</span>
+    <span style="font-size:18px;font-weight:bold;color:#222;margin-left:8px;">事故 30 秒复盘</span>
+  </section>
+  <p style="margin:16px 0 20px;">计划本来很稳，是这套流程里最标准的一步：</p>
+  <blockquote style="margin:0 0 20px;padding:14px 16px;background:#f7f7f7;border-radius:4px;font-size:15px;color:#555;line-height:1.9;">
+    <strong>先 7z 压缩 → 完整解压 → 逐文件字节比对 → 确认一致 → 才允许删源目录。</strong>
+  </blockquote>
+  <p style="margin:0 0 20px;">AI 的脚本也是这么写的。但它压缩时撞上了 Flutter 项目的符号链接（Windows 下一个无效的重解析点），<code style="background:#f1f3f4;color:#c7254e;padding:1px 5px;border-radius:3px;font-size:14px;">py7zr</code> 直接抛异常崩了。</p>
+  <p style="margin:0 0 20px;">真正的要命之处在后面：<strong style="color:#d93025;">脚本里的 <code style="background:#f1f3f4;padding:1px 5px;border-radius:3px;font-size:14px;">rm -rf</code> 没有写在"校验成功"的分支里。</strong></p>
+  <p style="margin:0 0 20px;">Python 崩溃，bash 无动于衷，继续往下跑——<code style="background:#f1f3f4;color:#c7254e;padding:1px 5px;border-radius:3px;font-size:14px;">rm -rf</code> 把整个工作区连根拔起，连同三个还没来得及归档的目录。</p>
+  <p style="margin:0 0 20px;">半截压缩包留在原地，11.5MB，打不开。</p>
+  <p style="margin:0 0 20px;"><strong>被删掉的</strong>：一个风机监控项目的完整代码和 git 历史、它的旧副本（里面有一个从未合回主干的提交）、一个 BLE 配网项目的全套交付物——源码、小程序、成品 APK、三份硬件协议 PDF。</p>
+  <p style="margin:0 0 20px;">其中 BLE 那个目录，<strong style="color:#d93025;">连一行代码都没推到过任何远端</strong>。</p>
+
+  <!-- 分隔线 -->
+  <section style="text-align:center;color:#d0d0d0;font-size:12px;margin:32px 0;letter-spacing:6px;">◆ ◆ ◆</section>
+
+  <!-- 02 -->
+  <section style="margin-bottom:8px;">
+    <span style="display:inline-block;background:#1a73e8;color:#ffffff;font-size:13px;font-weight:bold;padding:3px 12px;border-radius:3px;">02</span>
+    <span style="font-size:18px;font-weight:bold;color:#222;margin-left:8px;">不死心：四路恢复</span>
+  </section>
+  <p style="margin:16px 0 20px;">删掉的数据在 D 盘，一块 1TB 的三星 NVMe。删除发生后没有再往这块盘写大文件，理论上还有窗口期。我一口气试了四条路。</p>
+  <p style="margin:0 0 14px;"><strong>第一路：Windows 官方的 winfr。</strong>商店源报证书错误，没装上。</p>
+  <p style="margin:0 0 14px;"><strong>第二路：pytsk3（The Sleuth Kit 的 Python 绑定）。</strong>pip 一把装好，结果打不开 Windows 原始卷——各种路径写法全部报错，这条路对新手不友好。</p>
+  <p style="margin:0 0 14px;"><strong>第三路：PhotoRec（数据恢复界的祖师爷）。</strong>安装成功，但命令行版静默退出、一个字都不说；提权后终于给了句人话："Unable to open file or device D:"——设备名格式不对；交互模式倒是能跑，结果失控往日志里写了 5GB 的转义序列。</p>
+  <p style="margin:0 0 20px;"><strong>第四路：自己写。</strong>既然现成工具都不听话，那就用 ctypes 直接调 Windows API：<code style="background:#f1f3f4;color:#c7254e;padding:1px 5px;border-radius:3px;font-size:14px;">CreateFileW</code> 打开原始卷，8MB 一块滚动读，扫描三类特征——zip 的本地头、zip 的 EOCD 结尾标记、PDF 的 <code style="background:#f1f3f4;padding:1px 5px;border-radius:3px;font-size:14px;">%PDF-</code>。找到 EOCD 就反向解析中央目录，算出整个压缩包的起止位置，把字节原样切出来。</p>
+  <p style="margin:0 0 20px;"><strong style="color:#1a73e8;">430GB，扫了 27 分钟。</strong>中途还修了三个自己的 bug：卷大小不能用 GetFileSizeEx 查（返回 0，得走 GetDiskFreeSpaceExW）；字符串补丁打出过一次 NameError；16 字节的探测读没按扇区对齐，永远返回空。</p>
+  <p style="margin:0 0 20px;">扫完了。<strong style="color:#d93025;">zip：0 个。</strong>1103 个恢复出来的 PDF，全是这块盘前些年删除的无关文件，没有一个是目标。</p>
+
+  <!-- 分隔线 -->
+  <section style="text-align:center;color:#d0d0d0;font-size:12px;margin:32px 0;letter-spacing:6px;">◆ ◆ ◆</section>
+
+  <!-- 03 -->
+  <section style="margin-bottom:8px;">
+    <span style="display:inline-block;background:#1a73e8;color:#ffffff;font-size:13px;font-weight:bold;padding:3px 12px;border-radius:3px;">03</span>
+    <span style="font-size:18px;font-weight:bold;color:#222;margin-left:8px;">真相：SSD 上，删除就是销毁</span>
+  </section>
+  <p style="margin:16px 0 20px;">机械硬盘时代，"删除"只是把文件在账本上标记为"未占用"，数据还躺在盘片上——所以有 Recuva，所以"刚删的文件赶紧恢复"是有效的。</p>
+  <p style="margin:0 0 20px;">SSD 把这套逻辑推翻了。</p>
+  <blockquote style="margin:0 0 20px;padding:14px 16px;background:#fef7e7;border-radius:4px;font-size:15px;color:#7a5c00;line-height:1.9;">
+    操作系统删除文件时，会向 SSD 主控发送 <strong>TRIM 指令</strong>："这些数据块我不要了。"主控会在垃圾回收时<strong>直接擦除</strong>这些块。等你想起来要恢复，原始读取拿到的就是空数据。
+  </blockquote>
+  <p style="margin:0 0 20px;">430GB 扫描 zip 为零，就是 TRIM 的判决书：<strong style="color:#d93025;">在 SSD 上，删除是物理销毁，恢复窗口以秒计。</strong></p>
+  <p style="margin:0 0 20px;">"数据恢复软件"这个概念，在 SSD 时代对个人用户基本失效。真正的数据安全，只发生在删除<strong>之前</strong>。</p>
+
+  <!-- 分隔线 -->
+  <section style="text-align:center;color:#d0d0d0;font-size:12px;margin:32px 0;letter-spacing:6px;">◆ ◆ ◆</section>
+
+  <!-- 04 -->
+  <section style="margin-bottom:8px;">
+    <span style="display:inline-block;background:#1a73e8;color:#ffffff;font-size:13px;font-weight:bold;padding:3px 12px;border-radius:3px;">04</span>
+    <span style="font-size:18px;font-weight:bold;color:#222;margin-left:8px;">幸存者：流程对了，数据就活着</span>
+  </section>
+  <p style="margin:16px 0 20px;">故事有个不算安慰的注脚：风机项目的<strong>业务代码</strong>活了下来。</p>
+  <p style="margin:0 0 20px;">几周前整理另一个工作区时，里面有一份同源副本。瘦身时它走的是完整流程：先 7z 压缩、完整解压、逐文件字节比对、确认一致，然后才删除源目录。压缩包里带着 12 个业务文件和整套 git 历史。</p>
+  <p style="margin:0 0 20px;">换句话说：<strong style="color:#1a73e8;">同一批数据，走了"先归档后删除"的活着，没走的死了。</strong></p>
+  <p style="margin:0 0 20px;">更讽刺的是，事故脚本里"先压缩校验再删"的思路完全正确——它甚至在前一个批次成功跑过。问题只在于：正确思路没有落成正确的代码结构。校验和删除之间，没有那道强制性的墙。</p>
+
+  <!-- 分隔线 -->
+  <section style="text-align:center;color:#d0d0d0;font-size:12px;margin:32px 0;letter-spacing:6px;">◆ ◆ ◆</section>
+
+  <!-- 05 -->
+  <section style="margin-bottom:8px;">
+    <span style="display:inline-block;background:#1a73e8;color:#ffffff;font-size:13px;font-weight:bold;padding:3px 12px;border-radius:3px;">05</span>
+    <span style="font-size:18px;font-weight:bold;color:#222;margin-left:8px;">三条用血换来的铁律</span>
+  </section>
+  <p style="margin:16px 0 20px;"><strong style="color:#1a73e8;">一、删除必须挂接在校验的退出码上。</strong></p>
+  <p style="margin:0 0 20px;">"校验成功才删"不能只是流程描述，要写进代码结构：删除语句放在校验通过的分支里，脚本开启失败即停。AI 写的脚本也要过这一关——它的正确率不是 100%，破坏性动作必须结构化兜底。</p>
+  <p style="margin:16px 0 20px;"><strong style="color:#1a73e8;">二、一律回收站，禁止直删。</strong></p>
+  <p style="margin:0 0 20px;">现在我的所有处置删除都走一个 20 行的脚本（Windows 的 SHFileOperation + FOF_ALLOWUNDO），文件只进回收站。任务结束我人工检查一遍，确认无误再清空。回收站就是那条"删除与销毁之间"的缓冲带。</p>
+  <p style="margin:16px 0 20px;"><strong style="color:#1a73e8;">三、活跃的和归档的必须物理分开。</strong></p>
+  <p style="margin:0 0 20px;">这次事故还顺带暴露了另一个雷：归档堆里混着一个连着生产数据库、上个月还在改的同步工具。如果瘦身流程粗暴一点，它会被当成死项目一起清掉。甄别"在用物"必须是清点的第一步，而不是删除前的例行公事。</p>
+
+  <!-- 分隔线 -->
+  <section style="text-align:center;color:#d0d0d0;font-size:12px;margin:32px 0;letter-spacing:6px;">◆ ◆ ◆</section>
+
+  <!-- 写在最后 -->
+  <section style="margin-bottom:8px;">
+    <span style="font-size:18px;font-weight:bold;color:#222;">写在最后</span>
+  </section>
+  <p style="margin:16px 0 20px;">这次事故里最值得琢磨的，其实不是 TRIM 的技术细节，而是三个更普遍的问题：</p>
+  <p style="margin:0 0 20px;"><strong>把破坏性操作交给自动化时，兜底结构比流程描述重要</strong>——"应该先校验再删"人人都知道，但 AI 写出来的脚本照样可以把删除放在校验之外。</p>
+  <p style="margin:0 0 20px;"><strong>备份的价值在备份完成的那一刻才生效</strong>——"计划要备份"和"已备份且校验过"之间，隔着一整个事故。</p>
+  <p style="margin:0 0 20px;"><strong>对 AI 的产出保持和对你自己同样的怀疑</strong>——它能三天清完 33 个项目，也能在最自信的地方删你最在乎的目录。护栏要建在结构里，而不是建在信任里。</p>
+
+  <!-- 互动 -->
+  <section style="background:#f7f7f7;border-radius:6px;padding:16px;margin-top:32px;">
+    <p style="margin:0;font-size:15px;color:#555;line-height:1.9;">
+      你有没有过 rm -rf 翻车的经历？评论区聊聊你的故事。<br>
+      如果这篇文章帮你避开了一次误删，转发给身边那个经常跟终端打交道的朋友。
+    </p>
+  </section>
+
+</section>
+</body>
+</html>
