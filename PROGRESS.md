@@ -1,7 +1,19 @@
 # Project Experience Summary 进度记录
 
-> 更新时间：2026-09-05
+> 更新时间：2026-09-07
 > 仓库：`D:\projects\project-experience-summary` ↔ `https://github.com/granzonchen/project-experience-summary`
+
+---
+
+## ✅ 已完成（vue_front_project 分析线，2026-09-07）
+
+| # | 产出 | 说明 |
+|---|---|---|
+| 1 | `projects/vue_front_project.md` | 3.3GB/22 目录前端项目群复盘：双探索代理清点 + 3 深读代理并行（fj_daping+上游 diff / go-view 双副本对账 / led+shop_demo_1），含项目画像卡、技术深度分析、mermaid 知识图谱（机器可读 graph.json 在 _archive）；防注入抽查 6/6 通过 |
+| 2 | A/B 阶段制品 | 清单.md（22 目录画像+同源+敏感点+瘦身建议）、sanitize dry-run 报告（71 凭据候选/29 待人工）——均在 `D:\projects\_archive\20260907-vue_front_project-评估\`（不入库） |
+| 3 | 唯一执行动作 | win32_demo/华为credentials.csv（华为云 AK/SK 明文，git 盲区）经 recycle.py 入回收站；**待用户作废轮换 AK**；led 公开仓内网配置暴露面待用户判断 |
+
+核心结论：能演示≠能上线（fj_daping/AnyCarousel 双 mockup 实证）、认证形同虚设三连、同需求两套实现×4 组、go-view 双副本对账=旧仓 master-fetch 为最终版；F023 编号与 hn_service 库跨工作区挂接 projects-old。
 
 ---
 

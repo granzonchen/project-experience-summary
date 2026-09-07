@@ -29,6 +29,7 @@
 | 移动端模板集群 ×6 | [projects/miniapp-cluster.md](projects/miniapp-cluster.md) | uni-app/小程序模板化开发 | 真正该沉淀的是 API 封装层而非 UI 组件、无增量提交的复制迭代不可追溯 |
 | flutter 工作区 ×6 | [projects/flutter-workspace.md](projects/flutter-workspace.md) | Flutter/RN（充电桩/ThingsBoard/BLE 配网/PDA，2023） | 同平台三客户端三依赖约束、副本对漂移只发生在业务层、官方 App 二开三件套（URL 可配/本地存储/修登录）、构建产物磁盘残留 ≠ 仓库膨胀 |
 | python 工具工作区 ×8 | [projects/python-workspace.md](projects/python-workspace.md) | Python 胶水脚本（TB/Odoo/MES 生态 + 抖音获客 + APS 排产） | 活跃工具与归档混放是治理温床、共享代码靠复制传播、venv 占 93% 体积、git-less 工具的能跑状态是 exe |
+| vue_front_project ×22 | [projects/vue_front_project.md](projects/vue_front_project.md) | 前端项目群（F023 大屏 + go-view 双副本 + Node 后端 + 商城，2019~2024） | 能演示≠能上线（mockup 交付）、认证形同虚设三连、同需求两套实现、git 盲区藏活凭据、含知识图谱与跨工作区挂接 |
 
 ## 技术栈矩阵
 
@@ -49,6 +50,7 @@
 | **归档·Odoo 生态** | cevt / ltc / lims / xinyi / antai / rfmt / odoo14addons | Odoo 10/13/14 + Python + PostgreSQL + Nginx/Docker/k8s |
 | **归档·Python 全栈** | django-vue-admin-pro / dawei / dw / zhsq | Django + DRF + Vue2 + MySQL + Docker Compose |
 | **归档·多端小程序** | mms-wmp 系 / hn_mall 系 / maintenance 系 | uni-app(Vue2) / 微信原生 + ThorUI / ColorUI |
+| **归档·前端项目群** | vue_front_project（fj_daping / go-view×2 / led / shop_demo_1 / 参考×6） | Vue2/Vue3 + datav + echarts + uni-app + express/sequelize |
 | **归档·Flutter/RN 工作区** | flutter/（charger / tb_app_fj / feng-ji×2 / migan / warehouse_pda） | Flutter 2.12~3.7 + GetX + RN 0.63 + ThingsBoard/Odoo/Google Maps |
 
 ## 高频经验标签（跨项目）
@@ -92,7 +94,8 @@ project-experience-summary/
 │   ├── odoo-industry.md
 │   ├── fork-dashboard.md
 │   ├── gov-screen-gis.md
-│   └── miniapp-cluster.md
+│   ├── miniapp-cluster.md
+│   └── vue_front_project.md       # 前端项目群复盘（画像+技术深读+知识图谱）
 └── PUSH.md                        # 推送指引
 ```
 
