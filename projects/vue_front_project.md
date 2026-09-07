@@ -97,6 +97,42 @@
 
 2 天 6 commits（2023-04-13~14）的孤儿仓（无 remote、无 LICENSE、**无 echarts 依赖**、Vuex4 配 Vue2 的版本错配）。被放弃的硬证据：fj_daping 的 workshop/dashboard 页面与它 diff 仅 less→scss 一行级差异（`pages/workshop/LeftChart1.vue` → `views/workshop/LeftChart1.vue`），bg.png md5 三处一致——**是资产迁移而非继续演进**。换底座诱因（推断）：无 echarts 撑不起自定义图表交付。
 
+### 2.6 win32_demo 资产鉴定（第二批扩读）
+
+**体量校准**：882MB 中真实内容仅 **12MB / 270 文件**——873MB 是 4 处 node_modules，其中 react_web/hu_mes（612M）与 vue_demo/spa_demo（234M）经逐文件核实是 **CRA/vue-cli 纯脚手架，零业务页零后端调用**（`hu_mes/src/App.js` 是模板原样），首批画像「疑似 MES 前端尝试」**修正为「一行页面都没写」**，846MB 可无损回收。
+
+| 类别 | 内容 | 判定 |
+|---|---|---|
+| **业务骨架** | `rpa_demo/`（rpa_func/demo/rpa_main/operation_order/key_code + db.sqlite3 188K/22 表） | 自研**审计 RPA 控制台**：socket 收语音指令码→查命令字典→`eval(opt_code)` 执行（`rpa_demo/rpa_main.py:86`，另 `:49-51` `eval(order)`）——命令名 `query_gwk_tx/save_doubt_btn/output_excel` 表明这就是「公务卡疑点」业务线的控制台；库表是**预算执行审计取数规则引擎**（11 自研表有数据 + auth_user 1 条 2019 年 pbkdf2 哈希） |
+| **工具资产** | `operate_excel.py` 的 PyExcel 类（60+ 方法 Excel COM 包装，`operate_excel.py:28-292`，注意 `:135` `.Test`→`.Text` typo）；`socket/modbus_1.py:11-25` Modbus CRC16+进制转换；`rpa_demo/demo.py` 递归找子控件 `find_subHandle`；`call_dll.py:12-24` 最规范的 DLL 加载段 | **值得提取到工具库**的 4 组 |
+| **知识资产** | `说明.txt`（7.5K 自研 win32 API 速查）+ `study/win_handle_message*.txt`（3142 行 Windows 消息常量中文对照） | 本桶第一/第二知识资产 |
+| 教程跟打 | study/ui_demo/socket 大部、fast_api_admin（官方教程）、fastapi_admin_book、graphql_express、cpp/go/java、koa-demo（手写 mini-router 有 2 处 bug） | 约 60%，随目录压缩即可 |
+| 第三方拷贝 | `ubpa/`（62 文件全是 `# For-IS-RPA` 加密密文，**闭源商业包不可读**）、thing_js（minified three.js+官方 widget 示例，注释含同事姓名）、AutoItX dll×2 | 无回收价值 |
+| 数据残留 | `sql_app.db`（0 行，= fast_api_admin 教程库副本）、flask_demo 空连接串、9 处 `C:\Users\...` 绝对路径 | 可回收 |
+
+**新增敏感残留**（首批正则扫描之外，深读捞出）：`eval` 任意代码执行×2、公网代理 IP 明文（`fast_api_admin/main.py`）、弱凭据 6 处（mqtt/arangoDB/basic auth/go-mysql 的 admin/root 系）、失效 Cookie 明文（`operate_excel.py:388`，键名还拼成 `Coolie`）、同事真实姓名（thing_js 注释）。`公务卡疑点.xlsx` OLE2 伪装确认（magic `d0cf11e0`）；`111.pdf` 为合法 PDF-1.7，正是 `ocr_demo1.py` 的解析目标（该脚本缺 pandas/re import，跑不起来）。
+
+### 2.7 AI_CITY 简卡（第二批扩读）
+
+**不是「AI 城市」**——2020-08-05 一天写完的 Django 3.1 教程练手件：仿华为商城首页（商品分类字典+轮播），项目名随手起。数据=10 行手造华为商城分类词（先 HTML 硬编码再抽进库的教程典型路径，`index.html:66-74` 注释块与库中 10 行逐字相同），0 用户、无 PII。完成度 3/10：9 条路由中 `/index/` 两条必然 500（`template_name='index_view.html'` 模板不存在，`index/views.py:11`）、login 无鉴权且 CSRF 403、SECRET_KEY+DEBUG=True+ALLOWED_HOSTS=['*'] 教程三件套裸奔。Django 3.1 已 EOL 且 apps.py 无 default_auto_field 锁死版本，升不了级。**判定：归档弃用，无资产可提取**（华为商标图片还有版权风险）。全角「１.code-workspace」=中文输入法把 `1` 打成全角的插曲，无技术含义。
+
+### 2.8 参考/ 六仓与 2023-04 选型现场还原（第二批扩读）
+
+**体量校准**：六仓 1044MB 中 **97.8% 是 node_modules+.git**。「datav.jiaminghi.com 493MB 含 docs」是误判——docs 仅 705K，489MB 是文档站+3 个 demo 各自 npm install 的产物。
+
+选型现场时间线（全部本地证据，非推断）：`04-12` clone datav 文档站（尽调，三个 demo 全 install 跑效果）→ `04-13~14` fj_data 本地原型 2 天 6 commits → `04-14` clone big-screen-vue-datav → `04-15` clone IofTV-Screen → `04-17 08:17` fj_daping init → `04-20` clone nuxt+vue2-elm（转学习）→ `06-30` go-view 内网仓（路线转向低代码）。
+
+| 仓 | 定位 | License | 选型角色 | 本地增量 |
+|---|---|---|---|---|
+| datav.jiaminghi.com | **文档站**（vuepress）+3 demo，非组件库 | MIT 可商用 | 尽调/查文档，落选本体 | ⚠️ 有：1 本地 commit+1 本地分支+1 未提交改动，全为 Node18 修复（价值 4 行，diff 落盘即可） |
+| big-screen-vue-datav | 完整大屏模板（六区骨架） | Apache-2.0 | **入选**：fj_daping 直接 fork（version 1.5.1 完全一致，34 上游文件 24 字节相同/10 修改/95 新增） | 无，纯上游 |
+| IofTV-Screen | big-screen 二次封装成品模板 | MIT | 「模板→可上线项目」改造范式参考，落选 | 无 |
+| nuxt | Nuxt 3.4.1 框架源码 monorepo | MIT | SSR 学习，无落地项目 | 无；**102M 是 .git**，浅 clone 可省 |
+| vue2-elm | Vue2 商城学习件（webpack1/2016 栈） | GPL | 学习 | 无；34M 是 .git |
+| fj_data | 本地原型 | 无 LICENSE | fj_daping 前身 | ⚠️ **有真开发增量**：4 修改+4 未跟踪（含 `src/utils/` 与 3 个新 workshop 页），压缩前必须先 diff 纳版 |
+
+**为什么 4 月选 datav 系、6 月转 go-view**（推断，有据）：4 月要的是「我们写大屏」的一次性交付，选最干净骨架自己写业务；go-view 是「客户自己配大屏」的低代码平台，属需求层面路线切换而非技术栈升级。一个共同痛点三处独立出现：**Node18+OpenSSL3 打破 webpack4 md4**（fj_data 专门一个 commit、datav 本地分支、fj_daping 的 yarn-error.log+node_modules.zip），全靠 `--openssl-legacy-provider` 绕过。
+
 ## 三、技术深度分析
 
 ### 3.1 fj_daping 架构与数据通路
@@ -238,7 +274,7 @@ flowchart TB
 - **B dry-run 已完成**：71 处凭据候选 / 29 处待人工（多为 mock 手机号）/ 2 处数据产物（led.zip、node_modules.zip）/ 邮箱全为开源作者公共署名（无私有域名泄露）。报告：`sanitize_report-20260907.md`（同目录）。execute 替换未执行（分析线约定）
 - **已执行**：华为credentials.csv（华为云 AK/SK 明文，git 盲区）→ 2026-09-07 recycle.py 入回收站；**待用户：华为云控制台作废旧 AK 并轮换**
 - **待用户判断**：led 公开仓内网配置暴露面（下架/私有化）；win32_demo 数据文件（公务卡疑点.xlsx 等）人工过目
-- **E 瘦身候选**（未执行）：可回收约 2.5GB→瘦至 850MB，清单见 `清单.md` §四
+- **E 瘦身候选**（未执行）：可回收约 2.5GB→瘦至 850MB，清单见 `清单.md` §四。第二批扩读后的精确化增量：win32_demo 内 846MB 脚手架+node_modules 属无损回收、`ubpa/` 第三方闭源包与 thing_js/dll 随目录走、**提取清单 4 组**（PyExcel 类/Modbus CRC16/rpa_demo win32 三件/win32 速查与消息表）；参考/ 侧 4 个纯上游仓清 node_modules 直接压缩，**datav.jiaminghi 与 fj_data 两仓必须先 diff 落盘本地增量**（后者有 3 个未跟踪新页面）；nuxt/vue2-elm 若重存用浅 clone 省 136M
 - **F/G**：用户已拍板四仓历史全保留、不清洗；如日后外发，先 filter-repo（fj_daping 提交元数据含公司服务器拓扑）
 
 ---
@@ -257,3 +293,13 @@ flowchart TB
 | 6 | shop_demo_1 `pages/login/login.vue:93` authenticate('admin','Hn@***','hn_service') 忽略输入 | ✅ 一致 |
 
 代理自报注入扫描（ignore-instructions 模式）0 命中；三份报告未发现与清点画像冲突需降级的结论（C3 附加修正项：无）。
+
+**第二批扩读抽查（2026-09-07，5 条抽 4 实 1 修正）**：
+
+| # | 引用 | 核对结果 |
+|---|---|---|
+| 1 | win32_demo `operate_excel.py` `.Test = text` typo | ✅ 一致（:135 附近原样） |
+| 2 | win32_demo `rpa_demo/rpa_main.py` socket 循环内 `eval(opt_code)` | ✅ 结论正确，**行号修正**：真实位置 `:86`（`:49-51` 另有 `eval(order)`）；代理所引 `:60-64` 为注释掉的 demo 段 |
+| 3 | AI_CITY `index/views.py:11` `template_name='index_view.html'` 模板不存在 | ✅ 一致（templates 目录仅 4 个文件，无 index_view.html） |
+| 4 | 参考 datav.jiaminghi `package.json` vuepress 1.0.3 + `@jiaminghi/charts` | ✅ 一致（:26/:29） |
+| 5 | fj_daping 与 big-screen-vue-datav package.json version 双 1.5.1 | ✅ 一致 |
