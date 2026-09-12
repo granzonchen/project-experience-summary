@@ -1,0 +1,30 @@
+#!/bin/sh
+# pre-push 门禁 —— 推送前跑 scripts/publish-audit.mjs，命中敏感模式即拒绝
+#
+# 背景（2026-09-12）：本仓在 GitHub 上是**有意公开**的项目经验仓库；
+# 客户名与技术细节可公开，但**凭据与内网/部署地址绝不能进公开提交**。
+# 本仓有两个远端：origin=GitHub（公开）、gitee=Gitee（私有）——**两者都要过闸**。
+#
+# 启用：git config core.hooksPath .githooks
+
+fail() {
+  echo "" >&2
+  echo "[pre-push] 拒绝推送：$1" >&2
+  echo "  正确做法：node scripts/publish-audit.mjs <ref>  查看详情并修复后重试。" >&2
+  echo "" >&2
+  exit 1
+}
+
+while read -r local_ref local_sha remote_ref _remote_sha; do
+  [ -z "$local_ref" ] && continue
+
+  if command -v node >/dev/null 2>&1; then
+    if ! node scripts/publish-audit.mjs "$local_sha" >/dev/null 2>&1; then
+      fail "$remote_ref 的提交树命中敏感模式（凭据 / 内网或部署地址）"
+    fi
+  else
+    echo "[pre-push] 提示：未找到 node，跳过体检（请在推送前手动跑 scripts/publish-audit.mjs）" >&2
+  fi
+done
+
+exit 0

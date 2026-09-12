@@ -110,3 +110,21 @@ project-experience-summary/
 - 分析基于截至 2026-08 的代码与 git 历史，均为只读勘察
 - 部分项目涉及公司业务（lx-mes / cwjt / hexconn 等），本仓库只保留经验总结，不包含业务数据与源码
 - 深度文档中标注的改进建议为静态分析结论，实际优先级请结合业务判断
+
+## 推送门禁与脱敏约定（2026-09-12）
+
+本仓库有**两个远端**：`origin` = GitHub（**公开**）、`gitee` = Gitee（私有）——**两者都视为公开可见面**。
+
+- **写什么**：项目经验、技术细节、方法论（含客户/项目名，系本仓内容本体，已确认可公开）
+- **不写什么**：**凭据**（口令 / token / key / 私钥 / 带账号连接串）、**内网与部署地址**（RFC1918、IP:端口、内网域名）、以及任何运行时数据
+
+**推送前门禁**（已启用：`git config core.hooksPath .githooks`）：
+
+```bash
+node scripts/publish-audit.mjs [ref]    # 手动体检（默认 HEAD）；命中即退出码 1
+```
+
+`.githooks/pre-push` 会在推送每个分支前自动跑同一套规则，**命中即拒绝推送**（9 条规则：sk- 密钥 / GitHub PAT / AWS AK / 私钥块 / 带账号连接串 / 口令赋值 / RFC1918 / 非回环 IP:端口 / 内网域名）。
+
+> 地址类信息一律写成占位符（如 `<DB_HOST>:<DB_PORT>`）或用环境变量注入；**不要在说明/记录里复述原值**（复述 = 没脱敏）。
+> 历史曾含内网地址，已于 2026-09-12 用 `git filter-repo --replace-text` 重写并强推；备份见 `project-experience-summary-full-backup-20260912.bundle`（仓库同级目录）。
