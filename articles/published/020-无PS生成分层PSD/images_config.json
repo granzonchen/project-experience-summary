@@ -1,0 +1,37 @@
+{
+  "outdir": "D:/projects/project-experience-summary/articles/published/020-无PS生成分层PSD/images",
+  "cover": {
+    "title": "没有 Photoshop，也能生成能改的 PSD",
+    "subtitle": "程序化产物生成 · 五个坑 · 一条反套路教训",
+    "lines": [
+      ["$ python build_psd.py --dpi 300", "gray"],
+      ["canvas 1772x2835   layers 19   OK", "green"],
+      ["pytoshop: 30MB file, layers EMPTY", "red"],
+      ["verify self-composite: diff 0.05%", "green"]
+    ],
+    "footer": "试验田 · 第 20 篇 · 自动化硬核 · Ⅳ"
+  },
+  "cards": [
+    {
+      "file": "card_pits.png",
+      "header": "四个坑，四道防线",
+      "H": 630,
+      "items": [
+        ["1", "写盘成功，图层全空", "30MB 文件里没有一个像素", "对策：读回做等价比对"],
+        ["2", "分辨率正好一半", "@media screen 的 scale(0.5) 生效了", "对策：截图前禁用缩放 + 断言尺寸"],
+        ["3", "元素与底图差 1~3px", "名义缩放 3.125，实测 3.1204", "对策：比例用实测尺寸反推"],
+        ["4", "图层一移动就带走背景", "单独截图 = 一块不透明补丁", "对策：与底图求差做透明蒙版"]
+      ]
+    },
+    {
+      "file": "card_lesson.png",
+      "header": "反套路：工具说你错了，先复核工具",
+      "H": 480,
+      "items": [
+        ["1", "校验说「层序反了」", "三层三角验证结果自相矛盾", "对策：先写独立合成器复核"],
+        ["2", "复核：文件其实是对的", "误导来自库的合成与缓存路径", "结论：判据本身也要被验证"],
+        ["3", "差点把对的改成错的", "错误的判据 + 听话的执行者", "铁律：动手前先独立复核"]
+      ]
+    }
+  ]
+}
