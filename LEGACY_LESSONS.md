@@ -216,5 +216,7 @@
 ⑦ **验证必须"干净克隆 + `git fetch <完整SHA>`"**；`git ls-remote <sha>` 对不存在对象也返回 0，**会误判**。
 ⑧ **含反斜杠的规则/载荷必须在 Node/Python 侧 spawn 执行**（不经 shell）；bash heredoc 禁用；**git grep 只传朴素 ERE——POSIX ERE 不支持 `\b`/`(?:...)`，方言不对齐会返回 0 命中（曾被误读为"全历史无内网 IP"）**；报告**全量计数不截断**，且"0 命中"必须写明扫描范围与所用规则。
 ⑨ **校验器不内嵌被校验对象的规则**（委托权威扫描，单一来源）；**目录排除必须精确到路径**——hub 密钥门禁把整个 `canonical/` 列入排除目录，致 `canonical/rules/opencode-config.json` 内的真实 API key 从不被扫描（门禁"通过"却漏报），修法=改相对路径前缀（`canonical/memory`）并验证"扫描文件数上升 + 已知样例能被抓到"。
+⑩ **托管可见性判定必须用"真匿名"方式**——直接用 `git clone/ls-remote <url>` 试探时，**本机凭据助手（GCM）会自动补凭据**，私有仓库也"克隆成功"被判为**公开**（2026-09-12 实际误判一次）。修法：`HOME`/`USERPROFILE` 指向空目录 + `GIT_CONFIG_NOSYSTEM=1` + `GIT_TERMINAL_PROMPT=0` + `GIT_ASKPASS=echo` + `GCM_INTERACTIVE=never`（exit 0=公开、≠0=私有），并用**平台 API 匿名访问**交叉验证（私有→404）。症状：curl 取 `info/refs` 得 401/403 而 git 试探"成功"，矛盾即此坑。
+⑪ **多宿主发布**：纪律与宿主无关（护栏只校验发布线与单提交）；发布脚本要**参数化远端**（`--remote=`/`--branch=`，未配置即报错）；各宿主由同一棵树分别 orphan 重建，**提交 SHA 不同、树 SHA 相同**，**每个宿主都要推**，复验比对 `rev-parse <remote>/<branch>^{tree}` 是否相等。附：**退出码不要经管道取**（`cmd | head; echo $?` 拿到的是 `head` 的状态，假 0 曾致误判）。
 
-**强制要求**：加 `pre-push` 护栏拦三类（非发布线 / 非单提交 / 树内命中敏感）——注意 `git push --dry-run` **测不到钩子**（非快进检查先于钩子），须 `--force` 才走到；每次发布后必须跑干净克隆复验并留活体证据（ref 数 / 提交数 / 树扫描 / 旧 SHA 不可取回）；**私有 ≠ 安全**，转公开前须复核全部类目。规则全文见 agent-hub `canonical/rules/behavior.md` §16。
+**强制要求**：加 `pre-push` 护栏拦三类（非发布线 / 非单提交 / 树内命中敏感）——注意 `git push --dry-run` **测不到钩子**（非快进检查先于钩子），须 `--force` 才走到；每次发布后必须跑干净克隆复验并留活体证据（ref 数 / 提交数 / 树扫描 / 旧 SHA 不可取回 / **匿名不可读**）；**私有 ≠ 安全**，转公开前须复核全部类目。规则全文见 agent-hub `canonical/rules/behavior.md` §16。
