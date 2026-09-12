@@ -13,7 +13,7 @@
 - **移动端 uni-app(Vue2)+ThorUI**：mms-wmp 维修小程序（273 提交）+ mms-wmp-en 英文版 + mms-wmp-back 快照，共三套并存；另有 pms_applet 交付进度小程序、portal_website 门户，前端工程实际 5 个目录。
 - **API 层**：mms/restful addon 做 token 鉴权的薄 REST 层（controllers/token.py + models/access_token.py），mms_api.md 接口文档随代码走；小程序端直连生产域名。
 - **外部集成**：auto_backup（paramiko/SFTP 异地备份）、market_information 内嵌 Elasticsearch 客户端、base_external_dbsource、klw_office（OnlyOffice 在线文档）、oejia_wx（微信）。
-- **部署**：hn_service/docker-compose.yml 双容器（自建私仓 <REGISTRY_HOST>:<PORT> 的 goldwind/ltc12:v1 + postgres:10）；开发机是 Windows 本机 Odoo 直跑（hn_ltc.conf），compose 里却写死 macOS 用户路径——多套环境并存且各自为政。
+- **部署**：hn_service/docker-compose.yml 双容器（自建私仓 `<REGISTRY_HOST>:<PORT>` 的 goldwind/ltc12:v1 + postgres:10）；开发机是 Windows 本机 Odoo 直跑（hn_ltc.conf），compose 里却写死 macOS 用户路径——多套环境并存且各自为政。
 - **测试**：ltc-test-base = Selenium(Firefox) UI 测试（base.py，Singleton 化的 User/驱动管理 + screenshots 截图留证）+ odoorpc 直连测试 + LoadTests/OdooLocust 按 task 权重压 RPC。
 
 ## 三、做对了什么（可迁移思路）

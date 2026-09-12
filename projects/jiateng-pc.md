@@ -141,7 +141,7 @@ src/
 2. **sharding 改造未落地**：mes/qms/wms 三模块 `application-sharding.yml` 中 master 与 slave **均指向同一库**（假读写分离），round_robin 轮询同实例；dev 分支 2024-10 起即存在"主从读写分离事务"提交，至今未完成
 3. **近期工作性质**：全部为修补型（流转卡样式、条码 33-37 行显示、库存预警、领料清单导出按库位拆分、大屏查询条件）→ 业务已稳定运行，进入按需优化阶段
 4. **生产偶发问题**：2026-08-19 流转卡下载 500（AWT `NoClassDefFoundError`），重启自愈；已确认该链路（Aspose.Words PDF 渲染）**架构上绑定 Java2D**，只能保证 AWT 健康 + 诊断日志（详见 `.codebuddy/memory/2026-08-19.md`）
-5. **部署形态**：all 聚合 jar（mes+qms+retrospect）+ 多服务内网 IP（MySQL <DB_HOST>:<DB_PORT> / Redis <REDIS_HOST> / RabbitMQ <MQ_HOST> / ES <ES_HOST>）；存在 docker-compose 与 k8s 清单，但生产为 Windows Server 裸机 java -jar
+5. **部署形态**：all 聚合 jar（mes+qms+retrospect）+ 多服务独立部署（MySQL `<DB_HOST>:<DB_PORT>` / Redis `<REDIS_HOST>` / RabbitMQ `<MQ_HOST>` / ES `<ES_HOST>`）；存在 docker-compose 与 k8s 清单，但生产为 Windows Server 裸机 java -jar
 
 ### 8.3 业务侧风险
 
