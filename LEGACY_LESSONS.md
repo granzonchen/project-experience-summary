@@ -220,3 +220,32 @@
 ⑪ **多宿主发布**：纪律与宿主无关（护栏只校验发布线与单提交）；发布脚本要**参数化远端**（`--remote=`/`--branch=`，未配置即报错）；各宿主由同一棵树分别 orphan 重建，**提交 SHA 不同、树 SHA 相同**，**每个宿主都要推**，复验比对 `rev-parse <remote>/<branch>^{tree}` 是否相等。附：**退出码不要经管道取**（`cmd | head; echo $?` 拿到的是 `head` 的状态，假 0 曾致误判）。
 
 **强制要求**：加 `pre-push` 护栏拦三类（非发布线 / 非单提交 / 树内命中敏感）——注意 `git push --dry-run` **测不到钩子**（非快进检查先于钩子），须 `--force` 才走到；每次发布后必须跑干净克隆复验并留活体证据（ref 数 / 提交数 / 树扫描 / 旧 SHA 不可取回 / **匿名不可读**）；**私有 ≠ 安全**，转公开前须复核全部类目。规则全文见 agent-hub `canonical/rules/behavior.md` §16。
+
+---
+
+## 客户副本族治理规则（R-27~R-28，来自 D:\projects MOM 副本族复盘 2026-09-13）
+
+> 来源：一条 MOM 产品线的三个客户部署副本（代号 card-mode / hexconn / changwei，2023-09~2026-08）深读复盘，每条反模式 ≥3 仓实证且挂 file:line（定稿 `projects/mom-copy-family.md`，防注入抽查 7/7）。三条仓的共性=同一团队把同一底座按客户整仓复制——规则对一切「复制改造」型项目通用。
+
+### R-27 复制来的部署编排必须过「能起得来」验证：compose/k8s 是代码不是注释
+
+**现状**（同一份坏 docker-compose 在三个副本逐字相传，无一人真实整体起过）：
+- card-mode 与 changwei 的 compose 都是 `mes-api` 服务的 `container_name` 误写为 `qms-api`，与真 `qms-api` 服务重名——`docker compose up` 必撞名，两仓连同款 `container_name: qms-api` 出现在两处
+- changwei 同文件 ui 服务挂载 `./ui.pc.nginx.conf`，实际文件是 `./ui/nginx.conf`（挂载必失败）
+- hexconn compose 两 service 同名同镜像、端口却写了两个（起第二个必失败）
+- 三仓 compose 镜像名还带着更早产品的残留（另一产品 jar 名/另一 k8s 资源名）——复制时身份未清理（R-13 同源）
+
+**规则**：编排文件是可执行代码，跨仓复制后必须过三道门才算交付：① `docker compose config` schema 校验；② 容器名/端口/挂载源路径唯一性与存在性断言（脚本化，几行 bash）；③ 真实 `up` 一次的冒烟证据。三道门进 CI，不过不算完成。
+
+**强制要求**：复制编排模板的提交必须附「在本仓真实起过」的活体证据（容器列表/探针输出）；排查部署问题时先 diff 三处高频复制残留——`container_name`、`volumes` 路径、镜像 tag；发现同名服务第一反应是查上游模板而非逐行调试。
+
+### R-28 大二进制不入 git：字体/jar/构建产物/数据 dump 走依赖仓与构建期注入
+
+**现状**（仓库体积被非源码放大 30~100 倍，且随 fork 逐份复制）：
+- card-mode 把 Windows 系统字体整份提交 ×8 个模块（每份 415M、162 个 ttf，跨模块字节全同），`.git` 膨胀到 318M——整仓表观 7.0G、真实源码仅 ~100M
+- hexconn 21M 前端构建产物 `dist.zip` 入库 + aspose jar vendored 进源码树（card-mode/changwei 同款 jar 三份）
+- changwei 529M 数据库 dump 滞留代码目录（R-17 同源：数据与代码同生命周期）
+
+**规则**：①字体/安装包/构建产物/DB dump 不进 git——字体与 jar 走依赖仓或构建期注入，构建产物归制品库，dump 与代码异库存放且设到期清理；②仓库体检固定一项「跟踪文件按体积排序」：>1MB 入仓必须有理由，`git count-objects` 体积与源码体积比 >3 即人工排查；③fork 复制前先查上游是否已带大文件——污染随每个副本复制放大，入库即视为欠债（清偿要重写历史）。
+
+**强制要求**：新仓 init 时 `.gitignore` 先行（target/node_modules/dist/dump/字体目录）；「复制老仓建新仓」的 checklist 里加一步体积审计（R-13 四步纪律的扩展项）；发现大文件已入库时，评估「重写历史」与「接受现状」必须在入库当下决定，拖到归档期代价翻倍。
