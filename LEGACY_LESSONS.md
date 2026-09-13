@@ -50,7 +50,7 @@
 
 ## R-17 敏感态与代码同生命周期：密钥、PII、抓包快照三形态同治
 
-**现状**（扩展 R-03"密钥零明文"到归档场景）：密钥入仓——cevt k8s secrets.yaml + 8 conf、dvap launch.sh root 口令 + README 演示账号、antai CCD 端点 auth=none + 前端硬编码管理员账密、xinyi xy.conf、dawei compose 明文 root；**PII/敏感数据随交付物滞留**——api.md 接口抓包含真实居民信息、gis.htm/bigData 快照含真实数据（gov-screen-gis）；测试资产搬运凭据——ltc-test-base 引用 cevt 三套环境地址+口令。
+**现状**（扩展 R-03"密钥零明文"到归档场景）：密钥入仓——cevt k8s secrets.yaml + 8 conf、dvap launch.sh root 口令 + README 演示账号、antai CCD 端点 auth=none + 前端硬编码管理员账密、xinyi xy.conf、dawei compose 明文 root；**PII/敏感数据随交付物滞留**——api.md 接口抓包含真实居民信息、gis.htm/bigData 快照含真实数据（gov-screen-gis）；测试资产搬运凭据——ltc-test-base 引用 cevt 三套环境地址+口令；**交付文档（docx/xlsx）是第四载体**——tianjin-ruilian 交付文档群凭据散布 4 处（部署手册 root/中间件口令表、备份脚本内嵌 PG_PWD、台账"环境账号"sheet 18 行、本地运行手册 yml 片段），且同一口令在 Redis/PG/MySQL 三处同串复用、备份文档残留示例口令 `123456`（2026-09-13，详见 projects/tianjin-ruilian.md D1）。
 
 **规则**：三类"敏感态"同等对待：①密钥/凭据（Vault/env 注入，仓库只留引用）；②业务数据与 PII（演示用脱敏数据集，真实数据导出不进代码目录）；③交付/排错产物（抓包、页面快照、dump、日志）与代码库物理隔离。归档或交接前强制过"脱敏 + 密钥清理"清单。
 

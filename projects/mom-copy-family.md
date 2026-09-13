@@ -2,7 +2,7 @@
 
 > 生成：2026-09-13 ｜ 方法：lessons-from-legacy-projects skill A→B→C 分析线，3 个深读代理并行 + 统稿
 > 证据纪律：关键结论全部挂 file:line（相对 `D:\projects\{仓}\`）；防注入抽查 7/7 与原文一致（附录）；凭据一律以 REDACT/掩码形态引用，公司/客户以代号指代
-> 关联：机器可读图谱 `_archive/20260912-projects-全局再分析/graph.json`（不入库）；清点清单/sanitize 报告/B2 执行记录同目录；**同族第 4 员见 [jiateng-pc.md](jiateng-pc.md)（佳腾，生产运行中，其文档已确认「东珥科技（donger）提供 donger-mom-jeecg:3.0 框架」——与本文血缘结论互证）**；现役继任线见 [cwjt.md](cwjt.md)
+> 关联：机器可读图谱 `_archive/20260912-projects-全局再分析/graph.json`（不入库）；清点清单/sanitize 报告/B2 执行记录同目录；**同族第 4 员见 [jiateng-pc.md](jiateng-pc.md)（佳腾，生产运行中，其文档已确认「东珥科技（donger）提供 donger-mom-jeecg:3.0 框架」——与本文血缘结论互证）**；现役继任线见 [cwjt.md](cwjt.md)；**交付文档层旁证见 [tianjin-ruilian.md](tianjin-ruilian.md)（天津瑞联，卡奥斯品牌分支，`D:\秋田MOM镜像\` 实锤跨客户镜像复用，无代码故血缘未定）**
 
 ---
 
