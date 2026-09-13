@@ -68,7 +68,7 @@
 ## 经验归类速查
 
 - **大屏可视化类**（图表/轮询/缩放）：go-view、lx-mes-screen、qdkj-operate、medical-ui
-- **MOM/MES 制造运营类**（JeecgBoot 体系）：lx-mes、cwjt、jiateng-pc（已深度）、hcmom、hexconn、card-mode、changwei、baorun、device-job-management-pc-end
+- **MOM/MES 制造运营类**（JeecgBoot 体系）：lx-mes、cwjt、jiateng-pc（已深度）、hcmom、hexconn、card-mode、changwei、baorun、device-job-management-pc-end；其中 hexconn/card-mode/changwei 三仓已深度复盘（血缘地层学+反模式六条，见 mom-copy-family.md，2026-09-13）
 - **WMS 仓储移动端**（wms-phone-app 系）：jt-app（已深度）、lx-wms-app、lx-wms-app-dev、vue_app
 - **AI/Agent 类**：patent-disclosure-skill
 - **商城类**：hengyi-mall

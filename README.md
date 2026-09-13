@@ -11,6 +11,7 @@
 | 昌威交通 2.0（cwjt + cwjt_front） | [projects/cwjt.md](projects/cwjt.md) | MOM 云平台（Spring Boot 3 + Vue3 monorepo） | 单体多数据源 AOP 路由、401 令牌刷新队列、后端驱动路由、交接文档工作流 |
 | patent-disclosure-skill | [projects/patent-disclosure-skill.md](projects/patent-disclosure-skill.md) | 专利交底书 AI Agent Skill | 提示词工程门禁/锚点、Agent 输出契约、反幻觉具体规则、失败降级哲学 |
 | 佳腾 MOM 平台（jiateng-pc） | [projects/jiateng-pc.md](projects/jiateng-pc.md) | MOM 平台（Spring Boot 2.3 + Vue2 JeecgBoot 系） | 声明式列表页体系、v-has 权限表达式、9 副本架构教训、假读写分离 |
+| MOM 客户副本族 ×3（card-mode/hexconn/changwei） | [projects/mom-copy-family.md](projects/mom-copy-family.md) | 东珥 mom1.1 产品线客户部署副本（JeecgBoot 3.0 系，2023-09~2026-08） | 血缘四层地层学（Tpsoft→东珥→客户副本，fork 化石鉴定法）、同团队跨仓流动=双源漂移组织根源、9.8G→330M 体积校准、大屏迁移文档群 4475 行、反模式六条（编排失校/认证形同虚设/同需两套实现/dump 滞留/大二进制入 git/身份残留） |
 | jt-app（生产管理 App） | [projects/jt-app.md](projects/jt-app.md) | uni-app PDA 移动端（WMS+MES+QMS+TPM） | PDA 扫码三件套、PageMixin 分页状态机、多租户动态菜单、wgt 热更新 |
 | agent-hub（本地多智能体枢纽） | [projects/agent-hub.md](projects/agent-hub.md) | 多智能体调度（Python + 文件协议 + 7×L2 执行方） | 文件协议四落点、机械化验收拦截假完成、CLI 直调真身、配置漂移启动前校验 |
 | 其余 37 个项目概况 | [projects/overview.md](projects/overview.md) | 快速摸底 | 技术栈分类与项目间关联 |
