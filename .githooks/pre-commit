@@ -1,0 +1,30 @@
+#!/bin/sh
+# pre-commit 门禁 —— 拒绝向已冻结的 articles/ 写入（2026-09-15 去功能化）
+#
+# 背景：公众号「智能体试验田」文章主项目已于 2026-09-12 迁至 D:\articles\wx-articles，
+#       本仓 articles/ 冻结为历史备份。但"冻结"若只是约定就拦不住写入：
+#       2026-09-14 仍有会话误写本目录（6 篇），导致主仓需二次收编。
+#       故把约定实体化：本钩子拒绝任何 articles/ 下的改动。
+#
+# 例外：articles/README.md 是冻结说明本身，允许提交（否则说明文件都进不去）。
+#
+# 与既有 pre-push（scripts/publish-audit.mjs 敏感扫描）并存，互不冲突。
+# 启用：git config core.hooksPath .githooks
+
+staged=$(git diff --cached --name-only --diff-filter=ACMR 2>/dev/null)
+if [ -n "$staged" ]; then
+  blocked=$(echo "$staged" | grep -E '^articles/' | grep -v '^articles/README\.md$')
+  if [ -n "$blocked" ]; then
+    echo "" >&2
+    echo "[pre-commit] 拒绝提交：articles/ 已冻结（2026-09-12 起，主项目已迁出）" >&2
+    echo "  命中文件：" >&2
+    echo "$blocked" | sed 's/^/    /' >&2
+    echo "" >&2
+    echo "  正确做法：公众号内容改主仓 —— D:\\articles\\wx-articles\\published\\" >&2
+    echo "  理由说明见 articles/README.md；章程在 D:\\articles\\wx-articles\\prep\\公众号项目管理章程.md" >&2
+    echo "" >&2
+    exit 1
+  fi
+fi
+
+exit 0
